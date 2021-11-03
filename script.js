@@ -98,9 +98,6 @@ const secondBank = [
 class DrumPad extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      statusStyle: {color: 'blue'}
-    }
     this.playSoundbite = this.playSoundbite.bind(this);
     this.lightPad = this.lightPad.bind(this);
     this.keyDownHandler = this.keyDownHandler.bind(this);
@@ -139,7 +136,7 @@ class DrumPad extends React.Component {
       <div className={classes}
            id={this.props.title}
            onClick={this.playSoundbite}
-           style={this.state.statusStyle}>
+        >
           <audio
             className='soundbite'
             id={this.props.letter}
@@ -218,7 +215,7 @@ class App extends React.Component {
       let newText;
       if (this.state.bank === firstBank) {
         newBank = secondBank;
-        newText = 'Smooth Piano Kit';
+        newText = 'Piano Kit';
       } else {
         newBank = firstBank;
         newText = 'Heater Kit'
@@ -264,7 +261,7 @@ class App extends React.Component {
         ? {float: 'left'} : {float: 'right'};
     return (
       <div id='drum-machine'>
-        <img id='logo' src='https://static.thenounproject.com/png/17471-200.png'/>
+        <span id='logo'>Muse <i class="fas fa-compact-disc"></i></span>
         <PadButtons 
           volume={this.state.volume}
           power={this.state.power} 
