@@ -156,7 +156,7 @@ class DrumPad extends React.Component {
            style={this.state.style}
         >
           <audio
-            className='soundbite'
+            className='clip'
             id={this.props.letter}
             src={this.props.audio}
           />
@@ -231,9 +231,15 @@ class App extends React.Component {
   }
   
   togglePower() {
+    let newText;
+    if (this.state.power) {
+      newText = '';
+    } else {
+      newText = 'Hi!'
+    };
     this.setState({
       power: !this.state.power,
-      displayText: ''
+      displayText: newText
     });
   }
   

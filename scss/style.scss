@@ -1,17 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Righteous&family=VT323&display=swap');
 
-// colours #73D2DE #218380 #8F2D56 #8F2D56 #FFBC42
 $background: #29A39F;
 $keys: rgb(115, 210, 222);
 $key-border: 2px solid rgba(210, 210, 210, 0.7);
 $toggle-colour: #7C274B;
 $toggle-button-colour: #D01157;
-$text-colour: rgba(255,255,255,0.8);
+$text-colour: rgba(255,255,255,0.75);
 $text-shadow: 1px 1px #555, -1px -1px #555, -1px 1px #555, 1px -1px #555;
 $text-shadow-inset: 1px 1px white, -1px -1px black;
 $box-shadow: 3px 3px 2px #444, -1px -1px rgba(200,200,200,0.3);
 $box-shadow-inset: inset 3px 3px 3px #444;
-
+$track-colour: #9F7429;
+$thumb-colour: #E1C38E;
 
 
 
@@ -89,6 +89,9 @@ body {
   align-items: center;
   text-shadow: $text-shadow-inset;
   box-shadow: $box-shadow;
+  &:hover {
+    cursor: pointer;
+    }
 }
 
 
@@ -108,7 +111,7 @@ body {
   font-size: 1.8em;
   border: $key-border;
   border-radius: 4px;
-  color: black;
+  color: #222;
   display: flex;
   width: 250px;
   height: 70px;
@@ -162,9 +165,100 @@ body {
   justify-content: center;
 }
 
-[type='range'] {
-  width: 85%
+/* TRACK CHANGES */ 
+@mixin track {
+  cursor: default;
+  height: 12px;
+  width: 85%;
 }
+
+@mixin thumb {
+  box-shadow: $box-shadow;
+  background: $thumb-colour;
+  border-radius: 5px;
+  box-sizing: border-box;
+  cursor: pointer;
+  height: 15px;
+  width: 10px;
+}
+
+[type='range'] {
+  width: 85%;
+  -webkit-appearance: none;
+  background: transparent;
+  
+  &:focus {
+    outline: none;
+  }
+  
+  &::-moz-focus-outer {
+    border: 0;
+  }
+  
+  &::-webkit-slider-runnable-track {
+    background: lighten($track-colour, 8%);
+  }
+  
+  &::-ms-fill-lower {
+    background: $track-colour;
+  }
+  
+  &::-ms-fill-upper {
+    background: lighten($track-colour, 8%);
+  }
+  
+  &::-webkit-slider-runnable-track {
+    @include track;
+    box-shadow: $box-shadow-inset;
+    background: $track-colour;
+    border: 2px solid lighten($track-colour,10%);
+  }
+  
+  &::-webkit-slider-thumb {
+    @include thumb;
+    -webkit-appearance: none; 
+    height: 30px;
+    width: 20px;
+    margin-top: -11px;
+  }
+  
+  &::-moz-range-track {
+    @include track;
+    box-shadow: $box-shadow;
+    background: $track-colour;
+    border: $key-border;
+  }
+  
+  &::-moz-range-thumb {
+    @include thumb;
+  }
+  
+  &::-ms-track {
+    @include track;
+    width: 85%;
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+  }
+  
+  &::-ms-fill-lower {
+    box-shadow: $box-shadow;
+    background: $track-colour;
+    border: $key-border;
+  }
+  
+  &::-ms-fill-uppder {
+    box-shadow: $box-shadow;
+    background: $track-colour;
+    border: $key-border;
+  }
+  
+  &::-ms-thumb {
+    @nclude thumb;
+  }
+}
+
+
 
 @media screen and (max-width: 650px) {
   * {
