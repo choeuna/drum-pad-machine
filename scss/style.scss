@@ -121,3 +121,28 @@ body {
 [type='range'] {
   width: 85%
 }
+
+@media screen and (max-width: 650px) {
+  * {
+    // border: 1px dotted black;
+  }
+  #drum-machine {
+    width: 400px;
+    height: 500px;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+  }
+  
+  #display {
+    transform: scale(0.9);
+    width: 300px;
+    height: 200px;
+    justify-content: center;
+  }
+  
+  #drum-pad-buttons {
+    position: relative;
+    left: -30px;
+  }
+}
