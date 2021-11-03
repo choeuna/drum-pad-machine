@@ -1,0 +1,113 @@
+* {
+  border: 1px dotted black;
+}
+
+#drum-machine {
+  border: 1px solid black;
+  position: relative;
+  height: 350px;
+  width: 700px;
+  margin: auto;
+  display: flex;
+}
+
+#logo {
+  position: absolute;
+  height: 30px;
+  right: 0px;
+}
+
+#drum-pad-buttons {
+  height: 255px;
+  width: 255px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.button-row-0 {
+  display: flex;
+}
+
+.button-row-1 {
+  display: flex;
+  position: relative;
+  left: 35px;
+}
+
+.button-row-2 {
+  display: flex;
+  position: relative;
+  left: 70px;
+}
+
+.drum-pad {
+  margin: 3px;
+  height: 77px;
+  width: 77px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* DISPLAY RULES */
+
+#display {
+  height: 75%;
+  width: 40%;
+  margin: auto;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+}
+
+
+/* DISPLAY SCREEN */
+#display-text {
+  display: flex;
+  width: 250px;
+  height: 70px;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+  background: gray;
+}
+
+.control > p {
+  padding: 0px;
+  margin: 2px;
+  text-align: center;
+}
+
+/* TOGGLE */
+#toggles {
+  display: flex;
+  justify-content: space-around;
+}
+
+.toggle {
+  width: 60px;
+  height: 30px;
+  background: black;
+  border: 3px solid black;
+  border-radius: 20px; 
+}
+
+.toggle-inner {
+  width: 29px;
+  height: 30px;
+  background: pink;
+  border-radius: 50%;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+#volume {
+  display: flex;
+  justify-content: center;
+}
+
+[type='range'] {
+  width: 85%
+}
