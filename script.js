@@ -49,49 +49,49 @@ const firstBank = [
 ];
 const secondBank = [
   {
-    id: 'Chord-1',
-    key: 'Q',
-    audio: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3'
+    title: 'Chord-1',
+    letter: 'Q',
+    audio: 'https://s3.amazonaws.com/freecodecamp/drums/Chord_1.mp3'
   },
   {
-    id: 'Chord-2',
-    key: 'W',
-    audio: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-2.mp3'
+    title: 'Chord-2',
+    letter: 'W',
+    audio: 'https://s3.amazonaws.com/freecodecamp/drums/Chord_2.mp3'
   },
   {
-    id: 'Chord-3',
-    key: 'E',
-    audio: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-3.mp3'
+    title: 'Chord-3',
+    letter: 'E',
+    audio: 'https://s3.amazonaws.com/freecodecamp/drums/Chord_3.mp3'
   },
   {
-    id: 'Shaker',
-    key: 'A',
-    audio: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-4_1.mp3'
+    title: 'Shaker',
+    letter: 'A',
+    audio: 'https://s3.amazonaws.com/freecodecamp/drums/Give_us_a_light.mp3'
   },
   {
-    id: 'Open-HH',
-    key: 'S',
-    audio: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-6.mp3'
+    title: 'Open-HH',
+    letter: 'S',
+    audio: 'https://s3.amazonaws.com/freecodecamp/drums/Dry_Ohh.mp3'
   },
   {
-    id: 'Closed-HH',
-    key: 'D',
-    audio: 'https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3'
+    title: 'Closed-HH',
+    letter: 'D',
+    audio: 'https://s3.amazonaws.com/freecodecamp/drums/Bld_H1.mp3'
   },
   {
-    id: 'Punchy-Kick',
-    key: 'Z',
-    audio: 'https://s3.amazonaws.com/freecodecamp/drums/Kick_n_Hat.mp3'
+    title: 'Punchy-Kick',
+    letter: 'Z',
+    audio: 'https://s3.amazonaws.com/freecodecamp/drums/punchy_kick_1.mp3'
   },
   {
-    id: 'Side-Stick',
-    key: 'X',
-    audio: 'https://s3.amazonaws.com/freecodecamp/drums/RP4_KICK_1.mp3'
+    title: 'Side-Stick',
+    letter: 'X',
+    audio: 'https://s3.amazonaws.com/freecodecamp/drums/side_stick_1.mp3'
   },
   {
-    id: 'Snare',
-    key: 'C',
-    audio: 'https://s3.amazonaws.com/freecodecamp/drums/Cev_H2.mp3'
+    title: 'Snare',
+    letter: 'C',
+    audio: 'https://s3.amazonaws.com/freecodecamp/drums/Brk_Snr.mp3'
   }
 ];
 
@@ -169,6 +169,18 @@ class PadButtons extends React.Component {
          />
         )
       });
+    } else {
+      padButtons = this.props.bank.map((obj, i, arr) => {
+        return (
+        <DrumPad 
+          row={Math.floor(i/3)}
+          title={obj.title} 
+          letter={obj.letter} 
+          audio=''
+          updateDisplay={this.props.updateDisplay}
+         />
+        )
+      });
     }
     return (<div id='drum-pad-buttons'>{padButtons}</div>);
   }
@@ -181,7 +193,7 @@ class App extends React.Component {
       power: true,
       bank: firstBank,
       volume: 0.3,
-      displayText: 'test'
+      displayText: 'Hi!'
     };
     this.togglePower = this.togglePower.bind(this);
     this.toggleBank = this.toggleBank.bind(this);
@@ -192,24 +204,38 @@ class App extends React.Component {
   
   togglePower() {
     this.setState({
-      power: !this.state.power
+      power: !this.state.power,
+      displayText: ''
     });
   }
   
   toggleBank() {
-    let newBank = this.state.bank === firstBank ? secondBank : firstBank;
-    this.setState({
-      bank: newBank
-    });
+    if (this.state.power) {
+      let newBank;
+      let newText;
+      if (this.state.bank === firstBank) {
+        newBank = secondBank;
+        newText = 'Smooth Piano Kit';
+      } else {
+        newBank = firstBank;
+        newText = 'Heater Kit'
+      }
+      this.setState({
+        bank: newBank,
+        displayText: newText
+      });
+    }
   }
   
   // volume change handler
   changeVolume(e) {
-    this.setState({
-      volume: e.target.value,
-      displayText: 'volume: ' + Math.round(e.target.value*100)
-    });
-    setTimeout(() => this.clearDisplay(), 3000);
+    if (this.state.power) {
+      this.setState({
+        volume: e.target.value,
+        displayText: 'Volume: ' + Math.round(e.target.value*100)
+      });
+      setTimeout(() => this.clearDisplay(), 3000);
+    }
   }
   
   // displayText change handler
@@ -229,7 +255,6 @@ class App extends React.Component {
   
   
   render() {
-    // if powerToggle == false, disable lights, sounds, disallow toggle, disallow volume 
     const powerSlider = this.state.power 
         ? {float: 'right'} : {float: 'left'};
     const bankSlider = this.state.bank === firstBank 
