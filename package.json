@@ -1,0 +1,26 @@
+{
+  "name": "drum-pad-machine",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run lite",
+    "lite": "lite-server",
+    "sass": "node-sass -w scss/ -o css/--recursive"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/choeuna/drum-pad-machine.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/choeuna/drum-pad-machine/issues"
+  },
+  "homepage": "https://github.com/choeuna/drum-pad-machine#readme",
+  "dependencies": {
+    "node-sass": "^6.0.1"
+  },
+  "devDependencies": {}
+}
