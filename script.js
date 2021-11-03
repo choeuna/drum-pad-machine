@@ -113,6 +113,7 @@ class DrumPad extends React.Component {
   playSoundbite() {
     const sound = document.getElementById(this.props.letter);
     sound.currentTime = 0;
+    sound.volume = this.props.volume;
     sound.play();
     this.lightPad();
     setTimeout(() => this.lightPad(), 100);
@@ -161,6 +162,7 @@ class PadButtons extends React.Component {
       padButtons = this.props.bank.map((obj, i, arr) => {
         return (
         <DrumPad 
+          volume={this.props.volume}
           row={Math.floor(i/3)}
           title={obj.title} 
           letter={obj.letter} 
@@ -173,6 +175,7 @@ class PadButtons extends React.Component {
       padButtons = this.props.bank.map((obj, i, arr) => {
         return (
         <DrumPad 
+          volume={obj.volume}
           row={Math.floor(i/3)}
           title={obj.title} 
           letter={obj.letter} 
@@ -263,6 +266,7 @@ class App extends React.Component {
       <div id='drum-machine'>
         <img id='logo' src='https://static.thenounproject.com/png/17471-200.png'/>
         <PadButtons 
+          volume={this.state.volume}
           power={this.state.power} 
           bank={this.state.bank}
           updateDisplay={this.updateDisplay} 
