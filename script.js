@@ -1,5 +1,3 @@
-
-
 const firstBank = [
   {
     title: 'Heater-1',
@@ -47,6 +45,7 @@ const firstBank = [
     audio: 'https://s3.amazonaws.com/freecodecamp/drums/Cev_H2.mp3'
   }
 ];
+
 const secondBank = [
   {
     title: 'Chord-1',
@@ -95,25 +94,44 @@ const secondBank = [
   }
 ];
 
+//, color: 'rgba(255,255,0,0.1)', textShadow: '1px 1px 2px white, -1px -1px 15px white, 1px -1px 15px white, -1px 1px 15px white'
+
+const depressedStyle = {
+  backgroundColor: 'rgb(95,182,199)',
+  boxShadow: 'inset 3px 3px 2px #444',
+  marginTop: 5
+};
+
 class DrumPad extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      style: {marginTop: 0}
+    };
     this.playSoundbite = this.playSoundbite.bind(this);
-    this.lightPad = this.lightPad.bind(this);
+    this.depressPad = this.depressPad.bind(this);
     this.keyDownHandler = this.keyDownHandler.bind(this);
   }
   
-  lightPad() {
-    // light up the pad
+  depressPad() {
+    if (this.state.style.marginTop == 0) {
+      this.setState({
+        style: depressedStyle
+      });
+    } else {
+      this.setState({style: {marginTop: 0}});
+    }
   }
   
   playSoundbite() {
-    const sound = document.getElementById(this.props.letter);
-    sound.currentTime = 0;
-    sound.volume = this.props.volume;
-    sound.play();
-    this.lightPad();
-    setTimeout(() => this.lightPad(), 100);
+    if (this.props.power) {
+      const sound = document.getElementById(this.props.letter);
+      sound.currentTime = 0;
+      sound.volume = this.props.volume;
+      sound.play();
+    }
+    this.depressPad();
+    setTimeout(() => this.depressPad(), 100);
     this.props.updateDisplay(this.props.title.replace(/-/g, ' ')); 
   }
   componentDidMount() {
@@ -131,11 +149,11 @@ class DrumPad extends React.Component {
   }
   
   render() {
-    let classes = 'drum-pad button-row-' + this.props.row;
     return (
-      <div className={classes}
+      <div className='drum-pad'
            id={this.props.title}
            onClick={this.playSoundbite}
+           style={this.state.style}
         >
           <audio
             className='soundbite'
@@ -159,8 +177,8 @@ class PadButtons extends React.Component {
       padButtons = this.props.bank.map((obj, i, arr) => {
         return (
         <DrumPad 
+          power={this.props.power}
           volume={this.props.volume}
-          row={Math.floor(i/3)}
           title={obj.title} 
           letter={obj.letter} 
           audio={obj.audio}
@@ -173,16 +191,26 @@ class PadButtons extends React.Component {
         return (
         <DrumPad 
           volume={obj.volume}
-          row={Math.floor(i/3)}
           title={obj.title} 
           letter={obj.letter} 
-          audio=''
+          audio='#'
           updateDisplay={this.props.updateDisplay}
          />
         )
       });
     }
-    return (<div id='drum-pad-buttons'>{padButtons}</div>);
+    return (
+      <div id='drum-pad-buttons'>
+        <div class='button-row-0'>
+          {padButtons.slice(0,3)}
+        </div>
+        <div class='button-row-1'>
+          {padButtons.slice(3,6)}
+        </div>
+        <div class='button-row-2'>
+          {padButtons.slice(6,9)}
+        </div>
+      </div>);
   }
 }
 

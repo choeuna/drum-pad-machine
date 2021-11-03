@@ -2,13 +2,13 @@
 
 // colours #73D2DE #218380 #8F2D56 #8F2D56 #FFBC42
 $background: #29A39F;
-$keys: #73D2DE;
+$keys: rgb(115, 210, 222);
 $key-border: 2px solid rgba(210, 210, 210, 0.7);
 $toggle-colour: #7C274B;
 $toggle-button-colour: #D01157;
 $text-colour: rgba(255,255,255,0.8);
 $text-shadow: 1px 1px #555, -1px -1px #555, -1px 1px #555, 1px -1px #555;
-$text-shadow-bubble: 1px 1px white, -1px -1px black;
+$text-shadow-inset: 1px 1px white, -1px -1px black;
 $box-shadow: 3px 3px 2px #444, -1px -1px rgba(200,200,200,0.3);
 $box-shadow-inset: inset 3px 3px 3px #444;
 
@@ -20,6 +20,8 @@ $box-shadow-inset: inset 3px 3px 3px #444;
 }
 
 body {
+  margin-top: 40px;
+  background-color: #ABB9C4;
   font-family: Righteous, sans-serif;
   font-size: 25px;
   color: $text-colour;
@@ -50,28 +52,32 @@ body {
   width: 255px;
   margin: auto;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
 }
 
 .button-row-0 {
   display: flex;
-  position: relative;
-  left: -10px;
+  position: absolute;
+  left: 20px;
+  top: 50px;
 }
 
 .button-row-1 {
   display: flex;
-  position: relative;
-  left: 25px;
+  position: absolute;
+  left: 55px;
+  top: 135px;
 }
 
 .button-row-2 {
   display: flex;
-  position: relative;
-  left: 60px;
+  position: absolute;
+  left: 90px;
+  top: 220px;
 }
 
 .drum-pad {
+  color: rgba(200, 208, 207);
   background-color: $keys;
   border: $key-border;
   border-radius: 50%;
@@ -81,7 +87,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  text-shadow: $text-shadow-bubble;
+  text-shadow: $text-shadow-inset;
   box-shadow: $box-shadow;
 }
 
@@ -183,6 +189,7 @@ body {
   
   #drum-pad-buttons {
     position: relative;
-    left: -30px;
+    left: -55px;
+    top: -50px;
   }
 }
